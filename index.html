@@ -300,11 +300,11 @@
             </button>
 
             <!-- Bouton secondaire / Contact -->
-            <button id="btnContact"
+            <a id="btnContact" href="mailto:tychiquebong@gmail.com"
               class="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl text-base font-medium text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 transition-all duration-200">
               <i data-lucide="mail" class="w-4 h-4 text-slate-400"></i>
               <span>Me contacter</span>
-            </button>
+            </a>
           </div>
 
         </div>
@@ -366,6 +366,11 @@
               <div class="pl-4">
                 <span class="text-slate-400">role:</span>
                 <span class="text-amber-300">"Frontend Developer"</span>,
+              </div>
+
+              <div class="pl-4">
+                <span class="text-slate-400">email:</span>
+                <a href="mailto:tychiquebong@gmail.com" class="text-sky-300 hover:underline">"tychiquebong@gmail.com"</a>,
               </div>
 
               <div class="pl-4">
@@ -435,9 +440,9 @@
       <span>Conçu avec passion & créativité</span>
     </div>
     <div class="flex items-center gap-4 text-slate-400">
-      <span class="hover:text-indigo-400 transition-colors flex items-center gap-1">
-        <i data-lucide="code" class="w-3.5 h-3.5 text-indigo-400"></i> Code source propre
-      </span>
+      <a href="mailto:tychiquebong@gmail.com" class="hover:text-indigo-400 transition-colors flex items-center gap-1.5 text-slate-300">
+        <i data-lucide="mail" class="w-3.5 h-3.5 text-indigo-400"></i> tychiquebong@gmail.com
+      </a>
       <span>•</span>
       <span class="hover:text-indigo-400 transition-colors flex items-center gap-1">
         <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Accessible & Léger
@@ -529,9 +534,9 @@
 
   <!-- Notification Toast pour le bouton Contact -->
   <div id="contactToast"
-    class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 transition-all duration-300 glass-card px-4 py-3 rounded-xl border border-indigo-500/30 shadow-2xl flex items-center gap-3 text-sm text-slate-200">
+    class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 transition-all duration-300 glass-card px-4 py-3 rounded-xl border border-indigo-500/30 shadow-2xl flex items-center gap-3 text-sm text-slate-200 pointer-events-none">
     <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
-    <span>Adresse e-mail copiée ou prête pour le contact !</span>
+    <span>Adresse e-mail copiée : <strong class="text-indigo-300">tychiquebong@gmail.com</strong></span>
   </div>
 
   <!-- Scripts d'interactivité -->
@@ -582,16 +587,21 @@
       }
     });
 
-    // Gestion du bouton Contact (Feedback visuel / Toast)
+    // Gestion du bouton Contact (Feedback visuel / Toast & Copie)
     const btnContact = document.getElementById('btnContact');
     const contactToast = document.getElementById('contactToast');
 
-    btnContact.addEventListener('click', () => {
-      contactToast.classList.remove('translate-y-16', 'opacity-0');
-      setTimeout(() => {
-        contactToast.classList.add('translate-y-16', 'opacity-0');
-      }, 3500);
-    });
+    if (btnContact) {
+      btnContact.addEventListener('click', () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText('tychiquebong@gmail.com').catch(() => {});
+        }
+        contactToast.classList.remove('translate-y-16', 'opacity-0');
+        setTimeout(() => {
+          contactToast.classList.add('translate-y-16', 'opacity-0');
+        }, 3500);
+      });
+    }
 
     // Effet 3D Tilt subtil sur la carte de code pour une impression premium
     const codeCard = document.querySelector('.lg\\:col-span-5 .glass-card');
