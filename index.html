@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tychique BONGO — Développeur Frontend & Passionné du Web</title>
+  <meta name="description"
+    content="Portfolio personnel de Tychique BONGO, Développeur Frontend spécialisé dans la création d'expériences web modernes, intuitives et performantes." />
+
+  <!-- Google Fonts: Space Grotesk (Titres) & Plus Jakarta Sans (Corps) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet" />
+
+  <!-- Tailwind CSS CDN avec configuration personnalisée -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              dark: '#0F172A',
+              card: 'rgba(30, 41, 59, 0.7)',
+              accent: '#6366F1',
+              accentHover: '#4F46E5',
+              glow: '#818CF8',
+              light: '#F8FAFC',
+              muted: '#94A3B8',
+              border: 'rgba(148, 163, 184, 0.12)'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            display: ['"Space Grotesk"', 'sans-serif'],
+            mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'monospace']
+          },
+          animation: {
+            'pulse-slow': 'pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 5s ease-in-out infinite',
+            'float-delayed': 'float 6s ease-in-out 2s infinite',
+            'shimmer': 'shimmer 2.5s infinite linear',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            shimmer: {
+              '0%': { transform: 'translateX(-100%)' },
+              '100%': { transform: 'translateX(100%)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Arrière-plan grainé subtil et dégradés */
+    body {
+      background-color: #0F172A;
+      color: #F8FAFC;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Effet Glassmorphism */
+    .glass-panel {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .glass-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    /* Gradient Texte */
+    .text-gradient {
+      background: linear-gradient(135deg, #FFFFFF 20%, #E2E8F0 60%, #818CF8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .accent-gradient {
+      background: linear-gradient(135deg, #6366F1 0%, #8B5CF6 50%, #EC4899 100%);
+    }
+
+    /* Grille décorative d'arrière-plan */
+    .bg-grid-pattern {
+      background-size: 40px 40px;
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+
+    /* Halo lumineux interactif */
+    .radial-glow {
+      background: radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.15) 0%, rgba(139, 92, 246, 0.05) 45%, transparent 70%);
+    }
+
+    /* Animations d'entrée fluide */
+    .fade-in-up {
+      animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(24px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Style du tag modifiable */
+    .editable-name:hover {
+      outline: 2px dashed rgba(99, 102, 241, 0.5);
+      border-radius: 8px;
+      cursor: text;
+    }
+  </style>
+</head>
+
+<body
+  class="min-h-screen relative flex flex-col justify-between selection:bg-indigo-500/30 selection:text-white antialiased">
+
+  <!-- Grille & Halos de fond -->
+  <div class="fixed inset-0 pointer-events-none z-0">
+    <div class="absolute inset-0 bg-grid-pattern opacity-70"></div>
+    <!-- Orbe lumineux violet/indigo haut droit -->
+    <div
+      class="absolute -top-32 -right-32 w-96 md:w-[600px] h-96 md:h-[600px] bg-indigo-600/20 rounded-full blur-[128px] animate-pulse-slow">
+    </div>
+    <!-- Orbe lumineux violet/rose bas gauche -->
+    <div
+      class="absolute top-1/2 -left-48 w-80 md:w-[500px] h-80 md:h-[500px] bg-purple-600/15 rounded-full blur-[140px] animate-pulse-slow"
+      style="animation-delay: 3s;"></div>
+    <!-- Orbe cyan subtil centre -->
+    <div
+      class="absolute -bottom-24 right-1/3 w-72 md:w-[450px] h-72 md:h-[450px] bg-cyan-500/10 rounded-full blur-[120px]">
+    </div>
+  </div>
+
+  <!-- Barre supérieure discrète et minimaliste -->
+  <header class="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+    <!-- Logo / Monogramme -->
+    <a href="#" class="group flex items-center gap-3 transition-transform duration-200 hover:scale-105"
+      title="Mon Profil">
+      <div
+        class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-500 to-purple-600 p-[1px] shadow-lg shadow-indigo-500/20">
+        <div
+          class="w-full h-full bg-slate-900 rounded-[11px] flex items-center justify-center font-display font-bold text-white text-base">
+          DEV
+        </div>
+      </div>
+      <div class="flex flex-col">
+        <span
+          class="font-display font-semibold text-sm tracking-wide text-white group-hover:text-indigo-300 transition-colors">Portfolio</span>
+        <span class="text-[11px] text-slate-400 font-mono">v1.0 • 2025</span>
+      </div>
+    </a>
+
+    <!-- Statut de disponibilité -->
+    <div
+      class="flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-slate-700/50 shadow-sm text-xs font-medium text-slate-300">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+      </span>
+      <span>Disponible pour nouveaux projets</span>
+    </div>
+  </header>
+
+  <!-- Section Principale Unique (Hero Section) -->
+  <main class="relative z-10 flex-1 flex items-center justify-center px-6 py-6 md:py-12">
+    <div class="w-full max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+
+        <!-- COLONNE GAUCHE : Textes, Passions, Objectif & CTA (Col 7/12) -->
+        <div class="lg:col-span-7 flex flex-col items-start text-left space-y-6 fade-in-up">
+
+          <!-- 1. Badge d'introduction -->
+          <div
+            class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/30 text-indigo-300 text-xs md:text-sm font-medium shadow-inner shadow-indigo-500/20 backdrop-blur-md">
+            <span class="inline-block w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span>
+            <span class="tracking-wide">Bonjour, je suis</span>
+            <span class="text-indigo-400 font-semibold">👋</span>
+          </div>
+
+          <!-- 2. Grand Titre : [TON NOM] -->
+          <div class="relative group">
+            <h1 id="userNameHeading"
+              class="font-display font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tight text-gradient editable-name transition-all duration-300"
+              contenteditable="true" spellcheck="false" title="Cliquez pour personnaliser votre nom directement">
+              Tychique BONGO
+            </h1>
+            <span
+              class="hidden sm:inline-block absolute -top-2 -right-28 text-[11px] font-mono text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity bg-slate-800/80 px-2 py-0.5 rounded border border-slate-700 pointer-events-none">
+              ✎ Cliquer pour éditer
+            </span>
+          </div>
+
+          <!-- 3. Sous-titre -->
+          <p class="font-display text-xl sm:text-2xl text-slate-200 font-medium leading-snug max-w-2xl">
+            Développeur Frontend passionné par la création d’expériences web <span
+              class="text-indigo-400 font-semibold underline decoration-indigo-500/40 underline-offset-4">modernes</span>,
+            <span class="text-purple-400 font-semibold">intuitives</span> et <span
+              class="text-pink-400 font-semibold">performantes</span>.
+          </p>
+
+          <!-- 4. Courte Description -->
+          <p class="text-slate-300 text-base md:text-lg leading-relaxed max-w-2xl font-normal">
+            Je transforme des idées en interfaces web modernes et interactives. J’aime explorer les nouvelles
+            technologies, concevoir des expériences utilisateur élégantes et développer des applications accessibles,
+            rapides et responsives.
+          </p>
+
+          <!-- Badges des Passions -->
+          <div class="w-full pt-1">
+            <p class="text-xs uppercase tracking-wider text-slate-400 font-semibold mb-3 flex items-center gap-2">
+              <i data-lucide="sparkles" class="w-3.5 h-3.5 text-indigo-400"></i>
+              Centres d'intérêt & Passions
+            </p>
+            <div class="flex flex-wrap gap-2 sm:gap-2.5">
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-200 text-xs sm:text-sm font-medium hover:border-indigo-500/50 hover:bg-slate-800 transition-all hover:scale-105 duration-200 cursor-default shadow-sm">
+                <i data-lucide="code-2" class="w-3.5 h-3.5 text-indigo-400"></i>
+                Développement web
+              </span>
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-200 text-xs sm:text-sm font-medium hover:border-purple-500/50 hover:bg-slate-800 transition-all hover:scale-105 duration-200 cursor-default shadow-sm">
+                <i data-lucide="palette" class="w-3.5 h-3.5 text-purple-400"></i>
+                UI/UX Design
+              </span>
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-200 text-xs sm:text-sm font-medium hover:border-cyan-500/50 hover:bg-slate-800 transition-all hover:scale-105 duration-200 cursor-default shadow-sm">
+                <i data-lucide="cpu" class="w-3.5 h-3.5 text-cyan-400"></i>
+                Technologies modernes
+              </span>
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-200 text-xs sm:text-sm font-medium hover:border-pink-500/50 hover:bg-slate-800 transition-all hover:scale-105 duration-200 cursor-default shadow-sm">
+                <i data-lucide="rocket" class="w-3.5 h-3.5 text-pink-400"></i>
+                Création de projets innovants
+              </span>
+              <span
+                class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700/60 text-slate-200 text-xs sm:text-sm font-medium hover:border-emerald-500/50 hover:bg-slate-800 transition-all hover:scale-105 duration-200 cursor-default shadow-sm">
+                <i data-lucide="book-open" class="w-3.5 h-3.5 text-emerald-400"></i>
+                Apprentissage continu
+              </span>
+            </div>
+          </div>
+
+          <!-- Encadré Objectif Professionnel -->
+          <div
+            class="w-full max-w-2xl p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-slate-900/90 to-slate-800/60 border border-indigo-500/20 border-l-4 border-l-indigo-500 backdrop-blur-md shadow-lg shadow-black/20">
+            <div class="flex items-start gap-3">
+              <div class="p-2 rounded-xl bg-indigo-500/10 text-indigo-400 mt-0.5 shrink-0">
+                <i data-lucide="target" class="w-5 h-5"></i>
+              </div>
+              <div>
+                <h2 class="text-xs uppercase font-semibold tracking-wider text-indigo-300 mb-1">Mon Objectif</h2>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  Mon objectif est de devenir un développeur frontend capable de concevoir des expériences numériques
+                  modernes, accessibles et performantes tout en continuant à apprendre et à évoluer avec les nouvelles
+                  technologies.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5. Bouton Principal CTA & Liens rapides -->
+          <div class="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4 w-full sm:w-auto">
+            <!-- Bouton CTA Principal -->
+            <button id="btnProjects"
+              class="group relative inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-indigo-500 via-indigo-600 to-purple-600 hover:from-indigo-600 hover:to-purple-700 shadow-xl shadow-indigo-500/25 hover:shadow-indigo-500/40 transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:ring-offset-2 focus:ring-offset-slate-900">
+              <span>Voir mes projets</span>
+              <i data-lucide="arrow-right"
+                class="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1"></i>
+              <span class="absolute inset-0 rounded-xl overflow-hidden pointer-events-none">
+                <span
+                  class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-shimmer"></span>
+              </span>
+            </button>
+
+            <!-- Bouton secondaire / Contact -->
+            <button id="btnContact"
+              class="inline-flex items-center justify-center gap-2.5 px-6 py-4 rounded-xl text-base font-medium text-slate-300 hover:text-white bg-slate-800/60 hover:bg-slate-800 border border-slate-700/80 hover:border-slate-600 transition-all duration-200">
+              <i data-lucide="mail" class="w-4 h-4 text-slate-400"></i>
+              <span>Me contacter</span>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- COLONNE DROITE : Élément Visuel Abstrait & Interactif (Col 5/12) -->
+        <div class="lg:col-span-5 relative flex items-center justify-center">
+
+          <!-- Halo décoratif derrière la carte -->
+          <div
+            class="absolute w-72 h-72 sm:w-80 sm:h-80 bg-gradient-to-tr from-indigo-600/30 to-purple-500/30 rounded-full blur-3xl pointer-events-none">
+          </div>
+
+          <!-- Badge flottant 1 : Expérience UI/UX (Haut Droit) -->
+          <div
+            class="absolute -top-4 -right-2 sm:-right-4 z-20 animate-float hidden sm:flex items-center gap-2.5 px-4 py-2 rounded-xl glass-card border border-indigo-400/20 shadow-xl">
+            <span class="w-3 h-3 rounded-full bg-emerald-400 shadow-sm shadow-emerald-400/50"></span>
+            <span class="text-xs font-medium text-slate-200 font-mono">100% Responsive</span>
+          </div>
+
+          <!-- Badge flottant 2 : Clean Code (Bas Gauche) -->
+          <div
+            class="absolute -bottom-5 -left-2 sm:-left-4 z-20 animate-float-delayed hidden sm:flex items-center gap-2.5 px-4 py-2 rounded-xl glass-card border border-purple-400/20 shadow-xl">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5 text-yellow-400"></i>
+            <span class="text-xs font-medium text-slate-200 font-mono">Clean Code & Modern UX</span>
+          </div>
+
+          <!-- Carte Visuelle Principale : Terminal / Code Minimaliste -->
+          <div
+            class="w-full max-w-md glass-card rounded-2xl p-5 sm:p-6 shadow-2xl relative transition-all duration-300 hover:border-indigo-500/40 group">
+
+            <!-- Barre de fenêtre macOS -->
+            <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-700/60">
+              <div class="flex items-center space-x-2">
+                <div class="w-3 h-3 rounded-full bg-rose-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-amber-500/80"></div>
+                <div class="w-3 h-3 rounded-full bg-emerald-500/80"></div>
+              </div>
+              <div
+                class="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-slate-800/80 text-[11px] font-mono text-slate-400">
+                <i data-lucide="file-code" class="w-3 h-3 text-indigo-400"></i>
+                <span>developer.config.ts</span>
+              </div>
+              <div class="w-8"></div>
+            </div>
+
+            <!-- Contenu Code Interactif / Élégant -->
+            <div class="font-mono text-xs sm:text-[13px] leading-relaxed space-y-2 text-slate-300 overflow-x-auto">
+              <div class="text-slate-500">// Profil du développeur</div>
+              <div>
+                <span class="text-purple-400">const</span>
+                <span class="text-indigo-300">frontendDev</span> = {
+              </div>
+
+              <div class="pl-4">
+                <span class="text-slate-400">name:</span>
+                <span id="codeCardName" class="text-emerald-300 font-semibold">"Tychique BONGO"</span>,
+              </div>
+
+              <div class="pl-4">
+                <span class="text-slate-400">role:</span>
+                <span class="text-amber-300">"Frontend Developer"</span>,
+              </div>
+
+              <div class="pl-4">
+                <span class="text-slate-400">focus:</span> [
+                <span class="text-indigo-300">"Modern UI"</span>,
+                <span class="text-indigo-300">"Performance"</span>,
+                <span class="text-indigo-300">"Accessibility"</span>
+                ],
+              </div>
+
+              <div class="pl-4">
+                <span class="text-slate-400">passions:</span> [
+              </div>
+              <div class="pl-8 text-slate-400 space-y-0.5">
+                <div><span class="text-sky-300">"Web Dev"</span>,</div>
+                <div><span class="text-sky-300">"UI/UX Design"</span>,</div>
+                <div><span class="text-sky-300">"Continuous Learning"</span></div>
+              </div>
+              <div class="pl-4">],</div>
+
+              <div class="pl-4">
+                <span class="text-slate-400">status:</span>
+                <span class="text-emerald-400">"Building great products 🚀"</span>
+              </div>
+
+              <div>};</div>
+
+              <div class="pt-3 border-t border-slate-800 text-slate-500 flex items-center justify-between text-[11px]">
+                <span class="flex items-center gap-1.5 text-indigo-400">
+                  <i data-lucide="check-circle-2" class="w-3.5 h-3.5 text-emerald-400"></i>
+                  Compiled successfully
+                </span>
+                <span class="font-mono text-slate-600">TypeScript 5.4</span>
+              </div>
+            </div>
+
+            <!-- Mini Tech Stack Pills en bas de la carte -->
+            <div class="mt-5 pt-4 border-t border-slate-800/80 flex items-center justify-between gap-2">
+              <span class="text-[11px] font-mono text-slate-400 uppercase tracking-wider">Stack</span>
+              <div class="flex items-center gap-2 text-xs font-mono">
+                <span
+                  class="px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">HTML5</span>
+                <span class="px-2 py-0.5 rounded bg-sky-500/10 text-sky-300 border border-sky-500/20">Tailwind</span>
+                <span
+                  class="px-2 py-0.5 rounded bg-yellow-500/10 text-yellow-300 border border-yellow-500/20">JS/TS</span>
+                <span
+                  class="px-2 py-0.5 rounded bg-purple-500/10 text-purple-300 border border-purple-500/20">React</span>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- Pied de page minimaliste -->
+  <footer
+    class="relative z-10 w-full max-w-7xl mx-auto px-6 py-6 border-t border-slate-800/50 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-normal">
+    <div class="flex items-center gap-2">
+      <span>© 2025</span>
+      <span class="text-slate-600">•</span>
+      <span id="footerName" class="text-slate-300">Tychique BONGO</span>
+      <span class="text-slate-600">—</span>
+      <span>Conçu avec passion & créativité</span>
+    </div>
+    <div class="flex items-center gap-4 text-slate-400">
+      <span class="hover:text-indigo-400 transition-colors flex items-center gap-1">
+        <i data-lucide="code" class="w-3.5 h-3.5 text-indigo-400"></i> Code source propre
+      </span>
+      <span>•</span>
+      <span class="hover:text-indigo-400 transition-colors flex items-center gap-1">
+        <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i> Accessible & Léger
+      </span>
+    </div>
+  </footer>
+
+  <!-- Modal / Tiroir interactif pour "Voir mes projets" -->
+  <div id="projectsModal"
+    class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div
+      class="glass-card max-w-lg w-full rounded-2xl p-6 sm:p-8 border border-indigo-500/30 shadow-2xl transform scale-95 transition-transform duration-300"
+      id="projectsModalContent">
+      <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-700/60">
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-indigo-500/20 flex items-center justify-center text-indigo-400">
+            <i data-lucide="folder-git-2" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <h3 class="font-display font-bold text-lg text-white">Mes Projets Futurs</h3>
+            <p class="text-xs text-slate-400">En cours de préparation & déploiement</p>
+          </div>
+        </div>
+        <button id="closeModalBtn"
+          class="p-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <div class="space-y-3.5 my-4">
+        <!-- Item Projet 1 -->
+        <div
+          class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-indigo-500/40 transition-colors flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400 font-mono text-xs font-bold">
+              01</div>
+            <div>
+              <h4 class="text-sm font-semibold text-slate-200">Application Web SaaS & Dashboard</h4>
+              <p class="text-xs text-slate-400">React, Tailwind CSS & APIs modernes</p>
+            </div>
+          </div>
+          <span
+            class="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-indigo-500/15 text-indigo-300 border border-indigo-500/30">Bientôt</span>
+        </div>
+
+        <!-- Item Projet 2 -->
+        <div
+          class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-purple-500/40 transition-colors flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-lg bg-purple-500/10 flex items-center justify-center text-purple-400 font-mono text-xs font-bold">
+              02</div>
+            <div>
+              <h4 class="text-sm font-semibold text-slate-200">Design System & Composants UI</h4>
+              <p class="text-xs text-slate-400">Accessible, modulaire & documenté</p>
+            </div>
+          </div>
+          <span
+            class="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-purple-500/15 text-purple-300 border border-purple-500/30">En
+            cours</span>
+        </div>
+
+        <!-- Item Projet 3 -->
+        <div
+          class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 hover:border-pink-500/40 transition-colors flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-8 h-8 rounded-lg bg-pink-500/10 flex items-center justify-center text-pink-400 font-mono text-xs font-bold">
+              03</div>
+            <div>
+              <h4 class="text-sm font-semibold text-slate-200">Expérience Interactive 3D / WebGL</h4>
+              <p class="text-xs text-slate-400">Three.js, animations & micro-interactions</p>
+            </div>
+          </div>
+          <span
+            class="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-pink-500/15 text-pink-300 border border-pink-500/30">Concept</span>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button id="closeModalAction"
+          class="w-full py-2.5 px-4 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-semibold transition-colors">
+          Fermer l'aperçu
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Toast pour le bouton Contact -->
+  <div id="contactToast"
+    class="fixed bottom-6 right-6 z-50 transform translate-y-16 opacity-0 transition-all duration-300 glass-card px-4 py-3 rounded-xl border border-indigo-500/30 shadow-2xl flex items-center gap-3 text-sm text-slate-200">
+    <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+    <span>Adresse e-mail copiée ou prête pour le contact !</span>
+  </div>
+
+  <!-- Scripts d'interactivité -->
+  <script>
+    // Initialisation des icônes Lucide
+    lucide.createIcons();
+
+    // Synchronisation en direct du nom modifiable avec le reste de la page
+    const nameHeading = document.getElementById('userNameHeading');
+    const codeCardName = document.getElementById('codeCardName');
+    const footerName = document.getElementById('footerName');
+
+    if (nameHeading) {
+      nameHeading.addEventListener('input', () => {
+        const text = nameHeading.innerText.trim() || 'Tychique BONGO';
+        codeCardName.innerText = `"${text}"`;
+        footerName.innerText = text;
+        document.title = `${text} — Développeur Frontend & Passionné du Web`;
+      });
+    }
+
+    // Gestion de la modale "Voir mes projets"
+    const btnProjects = document.getElementById('btnProjects');
+    const projectsModal = document.getElementById('projectsModal');
+    const projectsModalContent = document.getElementById('projectsModalContent');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const closeModalAction = document.getElementById('closeModalAction');
+
+    function openModal() {
+      projectsModal.classList.remove('opacity-0', 'pointer-events-none');
+      projectsModalContent.classList.remove('scale-95');
+      projectsModalContent.classList.add('scale-100');
+    }
+
+    function closeModal() {
+      projectsModal.classList.add('opacity-0', 'pointer-events-none');
+      projectsModalContent.classList.remove('scale-100');
+      projectsModalContent.classList.add('scale-95');
+    }
+
+    btnProjects.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    closeModalAction.addEventListener('click', closeModal);
+
+    projectsModal.addEventListener('click', (e) => {
+      if (e.target === projectsModal) {
+        closeModal();
+      }
+    });
+
+    // Gestion du bouton Contact (Feedback visuel / Toast)
+    const btnContact = document.getElementById('btnContact');
+    const contactToast = document.getElementById('contactToast');
+
+    btnContact.addEventListener('click', () => {
+      contactToast.classList.remove('translate-y-16', 'opacity-0');
+      setTimeout(() => {
+        contactToast.classList.add('translate-y-16', 'opacity-0');
+      }, 3500);
+    });
+
+    // Effet 3D Tilt subtil sur la carte de code pour une impression premium
+    const codeCard = document.querySelector('.lg\\:col-span-5 .glass-card');
+    if (codeCard) {
+      window.addEventListener('mousemove', (e) => {
+        const rect = codeCard.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+        const distance = Math.hypot(x, y);
+
+        if (distance < 600) {
+          const rotateX = (-y / 25).toFixed(2);
+          const rotateY = (x / 25).toFixed(2);
+          codeCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+        } else {
+          codeCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+        }
+      });
+
+      codeCard.addEventListener('mouseleave', () => {
+        codeCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
+      });
+    }
+  </script>
+</body>
+
+</html>
